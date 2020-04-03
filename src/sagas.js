@@ -10,7 +10,7 @@ function* fetchCoins() {
         yield put({ type: "FETCH_DATA_SUCCEEDED", data: newData });
         yield put({ type: "FETCH_DATA" });
     } catch (e) {
-        yield put({ type: "DATA_FETCH_FAILED", message: e.message });
+        yield put({ type: "FETCH_DATA_FAILED", message: e.message });
     }
 }
 

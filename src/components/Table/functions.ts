@@ -5,12 +5,14 @@ import { DataAction } from "./actions";
 interface NewState {
     isLoaded: boolean,
     rows: Item[],
+    error: string,
 }
 
 function fetchDataSucceeded(state: TableState, action: DataAction) {
     const newState: NewState = {
         rows: [],
         isLoaded: true,
+        error: '',
     };
     if (!state.rows.length) {
         newState.rows.push(action.data);
@@ -31,4 +33,16 @@ function updateItemInArray(array: Item[], newItem: Item) {
     return arrCopy;
 }
 
-export { fetchDataSucceeded };
+interface DataFailedAction {
+    readonly type: string,
+    message: string,
+}
+
+function fetchDataFailed(state: TableState, action: DataFailedAction) {
+    const newState: NewState = Object.assign({}, state);
+    console.error(action.message);
+    newState.error = "Что-то сломалось! Пожалуйста, перезагрузите страницу";
+    return updateObject(state, newState);
+}
+
+export { fetchDataSucceeded, fetchDataFailed };

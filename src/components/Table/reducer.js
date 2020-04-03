@@ -1,5 +1,5 @@
-import { FETCH_DATA_SUCCEEDED } from './actions';
-import { fetchDataSucceeded } from './functions';
+import { FETCH_DATA_SUCCEEDED, FETCH_DATA_FAILED } from './actions';
+import { fetchDataSucceeded, fetchDataFailed } from './functions';
 
 const initialState = {
     rows: [],
@@ -11,6 +11,8 @@ export default (state = initialState, action)=> {
   switch (action.type) {
     case FETCH_DATA_SUCCEEDED:
         return fetchDataSucceeded(state, action);
+    case FETCH_DATA_FAILED:
+        return fetchDataFailed(state, action);
     default:
       return state;
   }

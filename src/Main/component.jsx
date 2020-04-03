@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import LinearProgress from '@material-ui/core/LinearProgress';
-import Container from '@material-ui/core/Container';
+import { LinearProgress, Container } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 
 import Converter from '../components/Converter/container';
 import Table from '../components/Table/container';
@@ -19,10 +19,11 @@ export default function (props) {
     useEffect(() => {
         const { fetchData } = props;
         fetchData();
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+    const { isLoaded, error } = props;
     return (
-        props.isLoaded ? (
+        isLoaded ? (
             <Container
                 maxWidth="sm"
                 style={container}
@@ -31,6 +32,10 @@ export default function (props) {
                 <Converter/>
                 <Table/>
             </Container>
+        ) : error ? (
+            <Alert variant="filled" severity="error">
+                {error}
+            </Alert>
         ) : <LinearProgress/>
     );
 };
