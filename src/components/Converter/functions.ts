@@ -27,9 +27,6 @@ function fetchDataSucceeded(state: ConverterState, action: DataAction) {
         newState.isFethed = true;
     } else {
         const { fromCurrency: from, inCurrency: to, isInverted } = state;
-        if (newState.exchangeRate !== action.data.value) {
-            newState.exchangeRate = action.data.value;
-        }
         if (isInverted) {
             return updateConverter(to, from, action, state);
         } else {
@@ -71,20 +68,30 @@ function changeCount(state: ConverterState, action: ConverterAction) {
 }
 
 function invertCurrencies(state: ConverterState) {
-    const exchangeRate = 1 / state.exchangeRate;
     return updateObject(state, {
         fromCurrency: state.inCurrency,
         inCurrency: state.fromCurrency,
-        exchangeRate,
-        isInverted: true,
+        exchangeRate: state.exchangeRate,
+        isInverted: !state.isInverted,
     });
 }
 
 function selectCurrency(state: ConverterState, action: any) {
     const { currency } = action;
-    const fromCurrency = { text: currency.text, value: "1" };
-    const inCurrency = { text: 'USD', value: currency.value };
-    return updateObject(state, { fromCurrency, inCurrency, exchangeRate: currency.value });
+    const newState: ConverterState = {
+        fromCurrency: { text: currency.text, value: 1 },
+        inCurrency: { text: 'USD', value: currency.value },
+        exchangeRate: currency.value,
+        selectedCurrency: action.currency,
+        isManuallyChanged: false,
+        isInverted: state.isInverted,
+        isFethed: state.isFethed,
+    };
+    if (state.isInverted) {
+        newState.fromCurrency = { text: 'USD', value: currency.value };
+        newState.inCurrency = { text: currency.text, value: 1 };
+    }
+    return updateObject(state, newState);
 }
 
 export {
