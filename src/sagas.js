@@ -1,9 +1,8 @@
-import { all, put, takeLatest, delay } from 'redux-saga/effects';
+import { all, put, takeLatest } from 'redux-saga/effects';
 
 import Api from './websocket.js';
 
 function* fetchCoins() {
-    yield delay(1000);
     try {
         const data = yield JSON.parse(Api.data);
         const newData = { text: data.FSYM, value: data.P };
