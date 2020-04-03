@@ -6,6 +6,7 @@ import { fetchData } from "../components/Table/actions";
 const mapStateToProps = state => {
     return {
         isLoaded: state.table.isLoaded,
+        error: state.table.error,
     };
 };
 
