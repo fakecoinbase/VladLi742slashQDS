@@ -1,6 +1,6 @@
 import { updateObject } from "../../functions";
-import {ConverterState, Currency, Item} from "../../interfaces";
-import {DataAction} from "../Table/actions";
+import { ConverterState, Currency } from "../../interfaces";
+import { DataAction } from "../Table/actions";
 
 function updateConverter(from: Currency, to: Currency, action: any, state: ConverterState) {
     const newState: any = Object.assign({}, state);
@@ -38,7 +38,7 @@ function fetchDataSucceeded(state: ConverterState, action: DataAction) {
 
 interface ConverterAction {
     value: number,
-    currency: Item,
+    currency: string,
     exchangeRate: number,
 }
 
@@ -47,7 +47,7 @@ function changeCount(state: ConverterState, action: ConverterAction) {
     const from = Object.assign({}, state.fromCurrency);
     const to = Object.assign({}, state.inCurrency);
     if (state.isInverted) {
-        if (to.text === currency.text) {
+        if (to.text === currency) {
             to.value = value;
             from.value = value && (value * exchangeRate);
         } else {
@@ -55,7 +55,7 @@ function changeCount(state: ConverterState, action: ConverterAction) {
             from.value = value;
         }
     } else {
-        if (from.text === currency.text) {
+        if (from.text === currency) {
             from.value = value;
             to.value = value && (value * exchangeRate);
         } else {

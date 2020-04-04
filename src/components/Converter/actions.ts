@@ -4,7 +4,7 @@ export const SELECT_CURRENCY = 'SELECT_CURRENCY';
 export const CHANGE = 'CHANGE_COUNT_CURRENCIES';
 export const INVERT = 'INVERT_CURRENCIES';
 
-export const changeCount = (value: number, currency: Item, exchangeRate: number) => ({
+export const changeCount = (value: number, currency: string, exchangeRate: number) => ({
     type: CHANGE,
     value,
     currency,
