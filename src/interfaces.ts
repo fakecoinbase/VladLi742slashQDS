@@ -6,6 +6,7 @@ export interface Item {
 export interface Currency {
     text: string,
     value: number,
+    onFocus: boolean,
 }
 
 export interface ConverterState {
@@ -13,7 +14,6 @@ export interface ConverterState {
     inCurrency: Currency,
     exchangeRate: number,
     selectedCurrency: object,
-    isManuallyChanged: boolean,
     isInverted: boolean,
     isFethed: boolean,
 }

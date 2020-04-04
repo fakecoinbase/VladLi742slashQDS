@@ -3,11 +3,10 @@ import { FETCH_DATA_SUCCEEDED } from '../Table/actions';
 import { selectCurrency, changeCount, invertCurrencies, fetchDataSucceeded } from './functions';
 
 const initialState = {
-    fromCurrency: { text: '', value: 1 },
-    inCurrency: { text: '', value: 1 },
+    fromCurrency: { text: '', value: 1, onFocus: false },
+    inCurrency: { text: '', value: 1, onFocus: false },
     exchangeRate: 0,
     selectedCurrency: {},
-    isManuallyChanged: false,
     isInverted: false,
     isFethed: false,
 };
