@@ -7,13 +7,13 @@ const mapStateToProps = state => {
   return {
       fromCurrency: state.converter.fromCurrency,
       inCurrency: state.converter.inCurrency,
-      exchangeRate: state.converter.exchangeRate,
+      rate: state.converter.rate,
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    changeCount: (value, currency, exchangeRate) => dispatch(changeCount(value, currency, exchangeRate)),
+    changeCount: (value, currency, rate) => dispatch(changeCount(value, currency, rate)),
     invertCurrencies: () => dispatch(invertCurrencies()),
   };
 };

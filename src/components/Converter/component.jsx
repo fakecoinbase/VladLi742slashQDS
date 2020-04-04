@@ -10,7 +10,7 @@ export default (props) => {
     const {
         fromCurrency,
         inCurrency,
-        exchangeRate,
+        rate,
         changeCount,
         invertCurrencies,
     } = props;
@@ -19,7 +19,7 @@ export default (props) => {
             <InputLabel>{fromCurrency.text}</InputLabel>
             <TextField
                 value={fromCurrency.value}
-                onChange={(e) => changeCount(e.target.value, fromCurrency.text, exchangeRate)}
+                onChange={(e) => changeCount(e.target.value, fromCurrency.text, rate)}
                 fullWidth={true}
             />
             <div style={buttonContainer}>
@@ -35,7 +35,7 @@ export default (props) => {
             <InputLabel>{inCurrency.text}</InputLabel>
             <TextField
                 value={inCurrency.value}
-                onChange={(e) => changeCount(e.target.value, inCurrency.text, exchangeRate)}
+                onChange={(e) => changeCount(e.target.value, inCurrency.text, rate)}
                 fullWidth={true}
             />
         </div>
