@@ -8,7 +8,15 @@ function createEventChannel(ws) {
             ws.onopen = () => {
                 const subRequest = {
                     "action": "SubAdd",
-                    "subs": ["0~Coinbase~BTC~USD", "0~Coinbase~ETH~USD"],
+                    "subs": [
+                        "0~Coinbase~BTC~USD",
+                        "0~Coinbase~ETH~USD",
+                        "0~Coinbase~XRP~USD",
+                        "0~Coinbase~BCH~USD",
+                        "0~Coinbase~LTC~USD",
+                        "0~Coinbase~EOS~USD",
+                        "0~Coinbase~XTZ~USD",
+                    ],
                 };
                 ws.send(JSON.stringify(subRequest));
             };
@@ -28,7 +36,15 @@ function createEventChannel(ws) {
                     console.log("WebSocket: closed");
                     const subRequest = {
                         "action": "SubRemove",
-                        "subs": ["0~Coinbase~BTC~USD", "0~Coinbase~ETH~USD"],
+                        "subs": [
+                            "0~Coinbase~BTC~USD",
+                            "0~Coinbase~ETH~USD",
+                            "0~Coinbase~XRP~USD",
+                            "0~Coinbase~BCH~USD",
+                            "0~Coinbase~LTC~USD",
+                            "0~Coinbase~EOS~USD",
+                            "0~Coinbase~XTZ~USD",
+                        ],
                     };
                     ws.send(JSON.stringify(subRequest));
                     emit(END);
