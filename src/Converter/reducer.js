@@ -1,5 +1,6 @@
 import { SELECT_CURRENCY, CHANGE, INVERT } from './actions';
 import { FETCH_DATA_SUCCEEDED } from '../Table/actions';
+
 import { selectCurrency, changeCount, invertCurrencies, fetchDataSucceeded } from './functions';
 
 const initialState = {

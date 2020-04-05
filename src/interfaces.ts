@@ -34,3 +34,9 @@ export interface DataFailedAction {
     readonly type: string,
     message: string,
 }
+
+export interface ConverterAction {
+    value: number,
+    currency: string,
+    rate: number,
+}

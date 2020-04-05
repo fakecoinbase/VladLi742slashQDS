@@ -1,7 +1,8 @@
 import { divide, round, cloneDeep } from 'lodash';
 
+import { ConverterState, Currency, DataAction, ConverterAction } from "../interfaces";
+
 import { updateObject } from "../functions";
-import { ConverterState, Currency, DataAction } from "../interfaces";
 
 function refreshRate(from: Currency, to: Currency, action: any, state: ConverterState) {
     const newState: ConverterState = cloneDeep(state);
@@ -38,12 +39,6 @@ function fetchDataSucceeded(state: ConverterState, action: DataAction) {
         }
     }
     return updateObject(state, newState);
-}
-
-interface ConverterAction {
-    value: number,
-    currency: string,
-    rate: number,
 }
 
 function changeCount(state: ConverterState, action: ConverterAction) {
