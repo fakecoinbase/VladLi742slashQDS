@@ -8,19 +8,17 @@ function refreshRate(from: Currency, to: Currency, action: any, state: Converter
     const newState: ConverterState = cloneDeep(state);
     const fsym = newState.isInverted ? newState.inCurrency : newState.fromCurrency;
     const tsym = newState.isInverted ? newState.fromCurrency : newState.inCurrency;
-    if (from.text === action.data.text) {
-        if (to.value !== action.data.value) {
-            if (from.onFocus) {
-                tsym.value = round(from.value * action.data.value, 5);
-            } else if (!to.onFocus) {
-                tsym.value = action.data.value;
-            } else if (to.onFocus) {
-                fsym.value = round(divide(to.value, action.data.value), 5);
-            } else if (!from.onFocus) {
-                fsym.value = action.data.value;
-            }
-            newState.rate = action.data.value;
+    if (from.text === action.data.text && to.value !== action.data.value) {
+        if (from.onFocus) {
+            tsym.value = round(from.value * action.data.value, 5);
+        } else if (!to.onFocus) {
+            tsym.value = action.data.value;
+        } else if (to.onFocus) {
+            fsym.value = round(divide(to.value, action.data.value), 5);
+        } else if (!from.onFocus) {
+            fsym.value = action.data.value;
         }
+        newState.rate = action.data.value;
     }
     return updateObject(state, newState);
 }
@@ -58,15 +56,13 @@ function changeCount(state: ConverterState, action: ConverterAction) {
         const refreshedValue = round(value * rate, 5);
         fsym.value = value || 0;
         tsym.value = value ? refreshedValue : 0;
-        fsym.onFocus = true;
-        tsym.onFocus = false;
     } else if (tsym.text === currency) {
         const refreshedValue = round(divide(value, rate), 5);
         fsym.value = value ? refreshedValue : 0;
         tsym.value = value || 0;
-        fsym.onFocus = false;
-        tsym.onFocus = true;
     }
+    fsym.onFocus = fsym.text === currency;
+    tsym.onFocus = tsym.text === currency;
     return updateObject(state, newState);
 }
 
