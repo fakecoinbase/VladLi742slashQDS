@@ -8,6 +8,11 @@ export const fetchData = () => ({
     type: FETCH_DATA,
 });
 
+export const fetchDataSucceeded = (data: Item) => ({
+    type: FETCH_DATA_SUCCEEDED,
+    data,
+});
+
 export interface DataAction {
     readonly data: Item,
 }
