@@ -1,6 +1,8 @@
 export interface Item {
     readonly text: string,
     value: number,
+    isIncreased: boolean,
+    isDecreased: boolean,
 }
 
 export interface Currency {

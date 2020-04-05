@@ -27,6 +27,8 @@ function updateItemInArray(array: Item[], newItem: Item) {
     const item = array.find((item: Item) => item.text === newItem.text);
     if (item) {
         if (item.value !== newItem.value) {
+            item.isIncreased = item.value < newItem.value;
+            item.isDecreased = item.value > newItem.value;
             item.value = newItem.value;
         }
     } else arrCopy.push(newItem);
