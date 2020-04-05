@@ -1,21 +1,25 @@
+import { divide, round, cloneDeep } from 'lodash';
+
 import { updateObject } from "../../functions";
 import { ConverterState, Currency } from "../../interfaces";
 import { DataAction } from "../Table/actions";
 
-function updateConverter(from: Currency, to: Currency, action: any, state: ConverterState) {
-    const newState: any = Object.assign({}, state);
+function refreshRate(from: Currency, to: Currency, action: any, state: ConverterState) {
+    const newState: ConverterState = cloneDeep(state);
+    const fsym = newState.isInverted ? newState.inCurrency : newState.fromCurrency;
+    const tsym = newState.isInverted ? newState.fromCurrency : newState.inCurrency;
     if (from.text === action.data.text) {
         if (to.value !== action.data.value) {
             if (from.onFocus) {
-                to.value = from.value * action.data.value;
+                tsym.value = round(from.value * action.data.value, 5);
             } else if (!to.onFocus) {
-                to.value = action.data.value;
+                tsym.value = action.data.value;
             } else if (to.onFocus) {
-                from.value = to.value / action.data.value;
+                fsym.value = round(divide(to.value, action.data.value), 5);
             } else if (!from.onFocus) {
-                from.value = action.data.value;
+                fsym.value = action.data.value;
             }
-            newState.exchangeRate = action.data.value;
+            newState.rate = action.data.value;
         }
     }
     return updateObject(state, newState);
@@ -24,16 +28,16 @@ function updateConverter(from: Currency, to: Currency, action: any, state: Conve
 function fetchDataSucceeded(state: ConverterState, action: DataAction) {
     const newState: ConverterState = Object.assign({}, state);
     if (!state.isFethed) {
-        newState.fromCurrency = { text: action.data.text, value: 1, onFocus: false };
+        newState.fromCurrency = { text: action.data.text, value: 1, onFocus: true };
         newState.inCurrency = { text: 'USD', value: action.data.value, onFocus: false };
-        newState.exchangeRate = action.data.value;
+        newState.rate = action.data.value;
         newState.isFethed = true;
     } else {
         const { fromCurrency: from, inCurrency: to, isInverted } = state;
         if (isInverted) {
-            return updateConverter(to, from, action, state);
+            return refreshRate(to, from, action, state);
         } else {
-            return updateConverter(from, to, action, state);
+            return refreshRate(from, to, action, state);
         }
     }
     return updateObject(state, newState);
@@ -42,30 +46,27 @@ function fetchDataSucceeded(state: ConverterState, action: DataAction) {
 interface ConverterAction {
     value: number,
     currency: string,
-    exchangeRate: number,
+    rate: number,
 }
 
 function changeCount(state: ConverterState, action: ConverterAction) {
-    const { value, currency, exchangeRate } = action;
-    const from = Object.assign({}, state.fromCurrency);
-    const to = Object.assign({}, state.inCurrency);
-    function setCurrencies(from: Currency, to: Currency) {
-        if (from.text === currency) {
-            from.value = value;
-            to.value = value && (value * exchangeRate);
-        } else {
-            from.value = value && (value / exchangeRate);
-            to.value = value;
-        }
-        from.onFocus = !from.onFocus;
-        to.onFocus = !to.onFocus;
+    const { value, currency, rate } = action;
+    const newState: ConverterState = cloneDeep(state);
+    const fsym = newState.isInverted ? newState.inCurrency : newState.fromCurrency;
+    const tsym = newState.isInverted ? newState.fromCurrency : newState.inCurrency;
+    if (fsym.text === currency) {
+        const refreshedValue = round(value * rate, 5);
+        fsym.value = value;
+        tsym.value = value && refreshedValue;
+        fsym.onFocus = true;
+        tsym.onFocus = false;
+    } else if (tsym.text === currency) {
+        const refreshedValue = round(divide(value, rate), 5);
+        fsym.value = value && refreshedValue;
+        tsym.value = value;
+        fsym.onFocus = false;
+        tsym.onFocus = true;
     }
-    if (state.isInverted) {
-        setCurrencies(to, from);
-    } else {
-        setCurrencies(from, to);
-    }
-    const newState = { fromCurrency: from, inCurrency: to };
     return updateObject(state, newState);
 }
 
@@ -73,7 +74,7 @@ function invertCurrencies(state: ConverterState) {
     return updateObject(state, {
         fromCurrency: state.inCurrency,
         inCurrency: state.fromCurrency,
-        exchangeRate: state.exchangeRate,
+        rate: state.rate,
         isInverted: !state.isInverted,
     });
 }
@@ -81,16 +82,16 @@ function invertCurrencies(state: ConverterState) {
 function selectCurrency(state: ConverterState, action: any) {
     const { currency } = action;
     const newState: ConverterState = {
-        fromCurrency: { text: currency.text, value: 1, onFocus: false, },
-        inCurrency: { text: 'USD', value: currency.value, onFocus: false, },
-        exchangeRate: currency.value,
+        fromCurrency: { text: currency.text, value: 1, onFocus: true },
+        inCurrency: { text: 'USD', value: currency.value, onFocus: false },
+        rate: currency.value,
         selectedCurrency: action.currency,
         isInverted: state.isInverted,
         isFethed: state.isFethed,
     };
     if (state.isInverted) {
-        newState.fromCurrency = { text: 'USD', value: currency.value, onFocus: false, };
-        newState.inCurrency = { text: currency.text, value: 1, onFocus: false, };
+        newState.fromCurrency = { text: 'USD', value: currency.value, onFocus: true };
+        newState.inCurrency = { text: currency.text, value: 1, onFocus: false };
     }
     return updateObject(state, newState);
 }

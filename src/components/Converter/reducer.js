@@ -3,9 +3,9 @@ import { FETCH_DATA_SUCCEEDED } from '../Table/actions';
 import { selectCurrency, changeCount, invertCurrencies, fetchDataSucceeded } from './functions';
 
 const initialState = {
-    fromCurrency: { text: '', value: 1, onFocus: false },
+    fromCurrency: { text: '', value: 1, onFocus: true },
     inCurrency: { text: '', value: 1, onFocus: false },
-    exchangeRate: 0,
+    rate: 0,
     selectedCurrency: {},
     isInverted: false,
     isFethed: false,

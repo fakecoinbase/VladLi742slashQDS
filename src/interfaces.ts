@@ -12,7 +12,7 @@ export interface Currency {
 export interface ConverterState {
     fromCurrency: Currency,
     inCurrency: Currency,
-    exchangeRate: number,
+    rate: number,
     selectedCurrency: object,
     isInverted: boolean,
     isFethed: boolean,
