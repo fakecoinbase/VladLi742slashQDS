@@ -1,5 +1,5 @@
-import { selectCurrency, invertCurrencies } from "./components/Converter/actions";
-import reducer from "./components/Converter/reducer";
+import { selectCurrency, invertCurrencies } from "../components/Converter/actions";
+import reducer from "../components/Converter/reducer";
 
 const state = {
    fromCurrency: { text: 'BTC', value: 1, onFocus: true },
