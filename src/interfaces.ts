@@ -23,5 +23,9 @@ export interface ConverterState {
 export interface TableState {
     rows: Item[],
     error: string,
-    isLoaded: boolean,
+    isFetched: boolean,
+}
+
+export interface DataAction {
+    readonly data: Item,
 }

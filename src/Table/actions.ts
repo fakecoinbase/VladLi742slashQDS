@@ -12,8 +12,3 @@ export const fetchDataSucceeded = (data: Item) => ({
     type: FETCH_DATA_SUCCEEDED,
     data,
 });
-
-export interface DataAction {
-    readonly data: Item,
-}
-

@@ -1,23 +1,22 @@
-import { updateObject } from "../functions";
-import { TableState, Item } from "../interfaces";
-import { DataAction } from "./actions";
+import { TableState, DataAction, Item } from "../interfaces";
 
-interface NewState {
-    isLoaded: boolean,
-    rows: Item[],
-    error: string,
+import { updateObject } from "../functions";
+
+interface DataFailedAction {
+    readonly type: string,
+    message: string,
 }
 
 function fetchDataSucceeded(state: TableState, action: DataAction) {
-    const newState: NewState = {
+    const newState: TableState = {
         rows: [],
-        isLoaded: true,
+        isFetched: true,
         error: '',
     };
-    if (!state.rows.length) {
-        newState.rows.push(action.data);
-    } else {
+    if (state.rows.length) {
         newState.rows = updateItemInArray(state.rows, action.data);
+    } else {
+        newState.rows.push(action.data);
     }
     return updateObject(state, newState);
 }
@@ -35,15 +34,11 @@ function updateItemInArray(array: Item[], newItem: Item) {
     return arrCopy;
 }
 
-interface DataFailedAction {
-    readonly type: string,
-    message: string,
-}
-
 function fetchDataFailed(state: TableState, action: DataFailedAction) {
-    const newState: NewState = Object.assign({}, state);
+    const newState: TableState = Object.assign({}, state, {
+        error: "Произошла ошибка! Пожалуйста, перезагрузите страницу"
+    });
     console.error(action.message);
-    newState.error = "Произошла ошибка! Пожалуйста, перезагрузите страницу";
     return updateObject(state, newState);
 }
 

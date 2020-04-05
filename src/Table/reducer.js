@@ -1,10 +1,11 @@
 import { FETCH_DATA_SUCCEEDED, FETCH_DATA_FAILED } from './actions';
+
 import { fetchDataSucceeded, fetchDataFailed } from './functions';
 
-const initialState = {
+export const initialState = {
     rows: [],
     error: '',
-    isLoaded: false,
+    isFetched: false,
 };
 
 export default (state = initialState, action)=> {

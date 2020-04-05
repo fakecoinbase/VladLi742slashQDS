@@ -21,9 +21,9 @@ export default function (props) {
         fetchData();
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-    const { isLoaded, error } = props;
+    const { isFetched, error } = props;
     return (
-        isLoaded ? (
+        isFetched ? (
             <Container
                 maxWidth="sm"
                 style={container}
