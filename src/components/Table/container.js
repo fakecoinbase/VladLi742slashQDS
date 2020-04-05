@@ -6,7 +6,6 @@ import component from './component';
 const mapStateToProps = state => {
   return {
     table: state.table,
-    selectedCurrency: state.converter.selectedCurrency,
   };
 };
 
