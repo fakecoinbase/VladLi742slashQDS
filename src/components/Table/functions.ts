@@ -41,7 +41,7 @@ interface DataFailedAction {
 function fetchDataFailed(state: TableState, action: DataFailedAction) {
     const newState: NewState = Object.assign({}, state);
     console.error(action.message);
-    newState.error = "Что-то сломалось! Пожалуйста, перезагрузите страницу";
+    newState.error = "Произошла ошибка! Пожалуйста, перезагрузите страницу";
     return updateObject(state, newState);
 }
 
