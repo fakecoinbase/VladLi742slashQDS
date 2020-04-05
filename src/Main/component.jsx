@@ -5,14 +5,9 @@ import { Alert } from '@material-ui/lab';
 import Converter from '../Converter/container';
 import Table from '../Table/container';
 
-const container = {
-    padding: "24px",
-    boxShadow: '0 0 10px #d3d3d3',
-};
-const h1 = {
-    fontFamily: 'Roboto, sans-serif',
-    fontWeight: 'unset',
-    textAlign: 'center',
+const styles = {
+    container: { padding: "24px", boxShadow: '0 0 10px #d3d3d3' },
+    h1: { fontFamily: 'Roboto, sans-serif', fontWeight: 'unset', textAlign: 'center' }
 };
 
 export default function (props) {
@@ -26,9 +21,9 @@ export default function (props) {
         isFetched ? (
             <Container
                 maxWidth="sm"
-                style={container}
+                style={styles.container}
             >
-                <h1 style={h1}>Конвертер валют</h1>
+                <h1 style={styles.h1}>Конвертер валют</h1>
                 <Converter/>
                 <Table/>
             </Container>
