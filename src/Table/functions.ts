@@ -1,11 +1,6 @@
-import { TableState, DataAction, Item } from "../interfaces";
+import { TableState, DataAction, DataFailedAction, Item } from "../interfaces";
 
 import { updateObject } from "../functions";
-
-interface DataFailedAction {
-    readonly type: string,
-    message: string,
-}
 
 function fetchDataSucceeded(state: TableState, action: DataAction) {
     const newState: TableState = {

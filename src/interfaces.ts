@@ -29,3 +29,8 @@ export interface TableState {
 export interface DataAction {
     readonly data: Item,
 }
+
+export interface DataFailedAction {
+    readonly type: string,
+    message: string,
+}
