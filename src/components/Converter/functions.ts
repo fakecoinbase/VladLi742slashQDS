@@ -56,14 +56,14 @@ function changeCount(state: ConverterState, action: ConverterAction) {
     const tsym = newState.isInverted ? newState.fromCurrency : newState.inCurrency;
     if (fsym.text === currency) {
         const refreshedValue = round(value * rate, 5);
-        fsym.value = value;
-        tsym.value = value && refreshedValue;
+        fsym.value = value || 0;
+        tsym.value = value ? refreshedValue : 0;
         fsym.onFocus = true;
         tsym.onFocus = false;
     } else if (tsym.text === currency) {
         const refreshedValue = round(divide(value, rate), 5);
-        fsym.value = value && refreshedValue;
-        tsym.value = value;
+        fsym.value = value ? refreshedValue : 0;
+        tsym.value = value || 0;
         fsym.onFocus = false;
         tsym.onFocus = true;
     }
