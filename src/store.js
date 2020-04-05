@@ -5,8 +5,8 @@ import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
 import rootSaga from './sagas';
-import table from './components/Table/reducer';
-import converter from './components/Converter/reducer';
+import table from './Table/reducer';
+import converter from './Converter/reducer';
 
 const rootReducer = combineReducers({
     table,

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 import component from './component';
-import { fetchData } from "../components/Table/actions";
+import { fetchData } from "../Table/actions";
 
 const mapStateToProps = state => {
     return {

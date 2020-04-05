@@ -1,6 +1,6 @@
 import { eventChannel, END } from 'redux-saga';
 import { put, call, take, takeLatest, all } from 'redux-saga/effects';
-import { FETCH_DATA, FETCH_DATA_FAILED, FETCH_DATA_SUCCEEDED } from "./components/Table/actions";
+import { FETCH_DATA, FETCH_DATA_FAILED, FETCH_DATA_SUCCEEDED } from "./Table/actions";
 
 function createEventChannel(ws) {
     return eventChannel(emit => {

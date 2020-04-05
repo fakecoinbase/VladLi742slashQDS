@@ -1,7 +1,7 @@
 import { divide, round, cloneDeep } from 'lodash';
 
-import { updateObject } from "../../functions";
-import { ConverterState, Currency } from "../../interfaces";
+import { updateObject } from "../functions";
+import { ConverterState, Currency } from "../interfaces";
 import { DataAction } from "../Table/actions";
 
 function refreshRate(from: Currency, to: Currency, action: any, state: ConverterState) {

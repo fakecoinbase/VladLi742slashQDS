@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import { LinearProgress, Container } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 
-import Converter from '../components/Converter/container';
-import Table from '../components/Table/container';
+import Converter from '../Converter/container';
+import Table from '../Table/container';
 
 const container = {
     padding: "24px",

@@ -1,4 +1,4 @@
-import { Item } from "../../interfaces";
+import { Item } from "../interfaces";
 
 export const SELECT_CURRENCY = 'SELECT_CURRENCY';
 export const CHANGE = 'CHANGE_COUNT_CURRENCIES';

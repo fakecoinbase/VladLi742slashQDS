@@ -1,4 +1,4 @@
-import { Item } from "../../interfaces";
+import { Item } from "../interfaces";
 
 export const FETCH_DATA = 'FETCH_DATA';
 export const FETCH_DATA_SUCCEEDED = 'FETCH_DATA_SUCCEEDED';

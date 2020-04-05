@@ -1,5 +1,5 @@
-import { updateObject } from "../../functions";
-import { TableState, Item } from "../../interfaces";
+import { updateObject } from "../functions";
+import { TableState, Item } from "../interfaces";
 import { DataAction } from "./actions";
 
 interface NewState {
