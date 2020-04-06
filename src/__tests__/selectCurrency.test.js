@@ -1,4 +1,4 @@
-import { selectCurrency, invertCurrencies } from "../Converter/actions";
+import { selectCurrency, invertCurrencies } from "../Converter/action-creators";
 import reducer from "../Converter/reducer";
 
 const state = {

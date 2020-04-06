@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { changeCount, invertCurrencies } from './actions';
+import { changeCount, invertCurrencies } from './action-creators';
 import component from './component';
 
 const mapStateToProps = state => {

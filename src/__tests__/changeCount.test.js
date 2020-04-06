@@ -1,6 +1,6 @@
 import { divide, round } from 'lodash';
 
-import { changeCount, invertCurrencies } from "../Converter/actions";
+import { changeCount, invertCurrencies } from "../Converter/action-creators";
 import reducer from "../Converter/reducer";
 
 const state = {

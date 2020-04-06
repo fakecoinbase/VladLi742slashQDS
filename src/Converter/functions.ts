@@ -1,10 +1,10 @@
 import { divide, round, cloneDeep } from 'lodash';
 
-import { ConverterState, Currency, DataAction, ConverterAction } from "../interfaces";
+import { ConverterState, Currency } from "../interfaces";
 
 import { updateObject } from "../functions";
 
-function refreshRate(from: Currency, to: Currency, action: any, state: ConverterState) {
+function refreshValue(from: Currency, to: Currency, action: any, state: ConverterState) {
     const newState: ConverterState = cloneDeep(state);
     const fsym = newState.isInverted ? newState.inCurrency : newState.fromCurrency;
     const tsym = newState.isInverted ? newState.fromCurrency : newState.inCurrency;
@@ -23,7 +23,7 @@ function refreshRate(from: Currency, to: Currency, action: any, state: Converter
     return updateObject(state, newState);
 }
 
-function fetchDataSucceeded(state: ConverterState, action: DataAction) {
+function refreshRate(state: ConverterState, action: any) {
     const newState: ConverterState = Object.assign({}, state);
     if (!state.isFethed) {
         newState.fromCurrency = { text: action.data.text, value: 1, onFocus: true };
@@ -33,15 +33,15 @@ function fetchDataSucceeded(state: ConverterState, action: DataAction) {
     } else {
         const { fromCurrency: from, inCurrency: to, isInverted } = state;
         if (isInverted) {
-            return refreshRate(to, from, action, state);
+            return refreshValue(to, from, action, state);
         } else {
-            return refreshRate(from, to, action, state);
+            return refreshValue(from, to, action, state);
         }
     }
     return updateObject(state, newState);
 }
 
-function changeCount(state: ConverterState, action: ConverterAction) {
+function changeCount(state: ConverterState, action: any) {
     const { value, currency, rate } = action;
     const newState: ConverterState = cloneDeep(state);
     const fsym = newState.isInverted ? newState.inCurrency : newState.fromCurrency;
@@ -87,7 +87,7 @@ function selectCurrency(state: ConverterState, action: any) {
 }
 
 export {
-    fetchDataSucceeded,
+    refreshRate,
     changeCount,
     invertCurrencies,
     selectCurrency,

@@ -1,5 +1,5 @@
-import { invertCurrencies } from "../Converter/actions";
-import { fetchDataSucceeded } from "../Table/actions";
+import { invertCurrencies } from "../Converter/action-creators";
+import { fetchDataSucceeded } from "../Table/action-creators";
 import reducer from "../Converter/reducer";
 
 const state = {

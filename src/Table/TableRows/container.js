@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { selectCurrency } from '../../Converter/actions';
+import { selectCurrency } from '../../Converter/action-creators';
 import component from './component';
 
 const mapStateToProps = state => {
