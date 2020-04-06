@@ -18,10 +18,10 @@ export default (props) => {
         };
         let icon = <TrendingFlatIcon/>;
         if (isIncreased) {
-            style.backgroundColor = 'rgba(122, 221, 89, 0.5)';
+            style.backgroundColor = 'rgba(122, 221, 89)';
             icon = <TrendingUpIcon/>;
         } else if (isDecreased) {
-            style.backgroundColor = 'rgba(255, 206, 206, 0.5)';
+            style.backgroundColor = 'rgb(212, 64, 64)';
             icon = <TrendingDownIcon/>;
         }
         return (
