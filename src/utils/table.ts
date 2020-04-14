@@ -1,6 +1,6 @@
-import { TableState, DataAction, DataFailedAction, Item } from "../interfaces";
+import { TableState, DataAction, DataFailedAction, Item } from "../ts/interfaces";
 
-import { updateObject } from "../functions";
+import { updateObject } from "./functions";
 
 function fetchDataSucceeded(state: TableState, action: DataAction) {
     const newState: TableState = {
@@ -30,9 +30,10 @@ function updateItemInArray(array: Item[], newItem: Item) {
 }
 
 function fetchDataFailed(state: TableState, action: DataFailedAction) {
-    const newState: TableState = Object.assign({}, state, {
+    const newState: TableState = {
+        ...state,
         error: "Произошла ошибка! Пожалуйста, перезагрузите страницу"
-    });
+    };
     console.error(action.message);
     return updateObject(state, newState);
 }

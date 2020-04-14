@@ -6,7 +6,7 @@ import {
     TrendingDown as TrendingDownIcon,
 } from '@material-ui/icons';
 
-import { randomKey } from '../../functions';
+import { randomKey } from '../../../utils/functions';
 
 export default (props) => {
     const { table, selectCurrency } = props;

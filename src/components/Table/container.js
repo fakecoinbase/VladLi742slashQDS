@@ -1,7 +1,8 @@
 import { connect } from 'react-redux';
 
-import { selectCurrency } from '../../Converter/action-creators';
 import component from './component';
+
+import { selectCurrency } from "../../redux/modules/converter";
 
 const mapStateToProps = state => {
   return {
@@ -15,9 +16,9 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-const TableRows = connect(
+const Table = connect(
   mapStateToProps,
   mapDispatchToProps
 )(component);
 
-export default TableRows;
+export default Table;

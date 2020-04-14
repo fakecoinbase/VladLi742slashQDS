@@ -5,8 +5,8 @@ import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
 import rootSaga from './sagas';
-import table from './Table/reducer';
-import converter from './Converter/reducer';
+import { reducer as table } from './modules/table';
+import { reducer as converter } from './modules/converter';
 
 const rootReducer = combineReducers({
     table,
@@ -22,7 +22,7 @@ const sagaMiddleware = createSagaMiddleware();
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const store   = createStore(
+const store = createStore(
     persistReducer(persistConfig, rootReducer),
     composeEnhancers(applyMiddleware(createLogger(), sagaMiddleware))
 );

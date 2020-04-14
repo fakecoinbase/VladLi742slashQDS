@@ -1,8 +1,8 @@
 import { divide, round, cloneDeep } from 'lodash';
 
-import { ConverterState, Currency } from "../interfaces";
+import { ConverterState, Currency } from "../ts/interfaces";
 
-import { updateObject } from "../functions";
+import { updateObject } from "./functions";
 
 function refreshValue(from: Currency, to: Currency, action: any, state: ConverterState) {
     const newState: ConverterState = cloneDeep(state);
@@ -24,7 +24,7 @@ function refreshValue(from: Currency, to: Currency, action: any, state: Converte
 }
 
 function refreshRate(state: ConverterState, action: any) {
-    const newState: ConverterState = Object.assign({}, state);
+    const newState: ConverterState = { ...state };
     if (!state.isFethed) {
         newState.fromCurrency = { text: action.data.text, value: 1, onFocus: true };
         newState.inCurrency = { text: 'USD', value: action.data.value, onFocus: false };

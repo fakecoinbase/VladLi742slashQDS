@@ -1,6 +1,6 @@
 import { eventChannel, END } from 'redux-saga';
 import { put, call, take, takeLatest, all } from 'redux-saga/effects';
-import { FETCH_DATA, FETCH_DATA_FAILED, FETCH_DATA_SUCCEEDED } from "./Table/actions";
+import { FETCH_DATA, FETCH_SUCCESS, FETCH_FAIL } from "./modules/table";
 
 function createEventChannel(ws) {
     return eventChannel(emit => {
@@ -73,10 +73,10 @@ function* fetchDataChannel() {
         try {
             const trade = yield take(channel);
             const data = { text: trade.FSYM, value: trade.P };
-            yield put({ type: FETCH_DATA_SUCCEEDED, data });
+            yield put({ type: FETCH_SUCCESS, data });
         }
         catch(err) {
-            yield put({ type: FETCH_DATA_FAILED, message: err.message });
+            yield put({ type: FETCH_FAIL, message: err.message });
         }
     }
 }

@@ -1,5 +1,4 @@
-import { invertCurrencies } from "../Converter/action-creators";
-import reducer from "../Converter/reducer";
+import { reducer, invertCurrencies } from "../redux/modules/converter";
 
 const state = {
    fromCurrency: { text: 'BTC', value: 1, onFocus: true },
