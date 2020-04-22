@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 
 import { store, persistor } from './redux/store';
-import Main from "./components/Main/container";
+import Main from "./components/Main";
 
 export default function() {
     return (

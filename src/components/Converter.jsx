@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
     InputLabel,
     TextField,
@@ -6,20 +7,26 @@ import {
 } from '@material-ui/core';
 import ImportExportIcon from '@material-ui/icons/ImportExport';
 
+import { CHANGE, INVERT } from "../redux/modules/converter";
+
 const styles = {
     container: { marginBottom: '30px' },
     buttonContainer: { margin: '20px 0' }
 };
 
-function setInput(item, ...rest) {
-    const [ rate, changeCount ] = rest;
+function Currency({ role }) {
+    const dispatch = useDispatch();
+    const { [role]: item, rate } = useSelector(state => state.converter);
+    const onChange = useCallback(e => {
+        dispatch({ type: CHANGE, value: e.target.value, currency: item.text, rate });
+    }, [item, rate, dispatch]);
     const styleOnFocus = item.onFocus ? { backgroundColor: 'rgb(230, 238, 255, 0.5)' } : {};
     return (
         <div>
             <InputLabel>{item.text}</InputLabel>
             <TextField
                 value={item.value}
-                onChange={(e) => changeCount(e.target.value, item.text, rate)}
+                onChange={onChange}
                 fullWidth={true}
                 style={styleOnFocus}
             />
@@ -27,16 +34,15 @@ function setInput(item, ...rest) {
     );
 }
 
-export default (props) => {
-    const { fromCurrency, inCurrency, invertCurrencies, rate, changeCount } = props;
-    const fromInput = setInput(fromCurrency, rate, changeCount);
-    const toInput = setInput(inCurrency, rate, changeCount);
+export default () => {
+    const dispatch = useDispatch();
+    const invertCurrencies = () => dispatch({ type: INVERT });
     return (
         <div style={styles.container}>
-            {fromInput}
+            <Currency role="fromCurrency"/>
             <div style={styles.buttonContainer}>
                 <Button
-                    onClick={() => invertCurrencies()}
+                    onClick={invertCurrencies}
                     fullWidth={true}
                     variant="contained"
                     color="primary"
@@ -44,7 +50,7 @@ export default (props) => {
                     Поменять местами<ImportExportIcon/>
                 </Button>
             </div>
-            {toInput}
+            <Currency role="inCurrency"/>
         </div>
     );
 };

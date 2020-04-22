@@ -1,4 +1,5 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { TableRow, TableCell } from '@material-ui/core';
 import {
     TrendingFlat as TrendingFlatIcon,
@@ -6,12 +7,16 @@ import {
     TrendingDown as TrendingDownIcon,
 } from '@material-ui/icons';
 
-import { randomKey } from '../../../utils/functions';
+import { SELECT_CURRENCY } from "../redux/modules/converter";
 
-export default (props) => {
-    const { table, selectCurrency } = props;
+import { randomKey } from '../utils/functions';
+
+export default () => {
+    const dispatch = useDispatch();
+    const table = useSelector(state => state.table);
     return table.rows.map(row => {
         const { text, value, isIncreased, isDecreased } = row;
+        const selectCurrency = () => dispatch({ type: SELECT_CURRENCY, currency: { text, value } });
         const style = {
             boxShadow: '0 0 5px #d3d3d3',
             cursor: 'pointer',
@@ -26,7 +31,7 @@ export default (props) => {
         }
         return (
             <TableRow
-                onClick={() => selectCurrency({ text, value })}
+                onClick={selectCurrency}
                 key={randomKey()}
                 style={style}
             >

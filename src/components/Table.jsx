@@ -6,7 +6,7 @@ import {
     TableRow,
     TableCell,
 } from '@material-ui/core';
-import TableRows from "./TableRows/container";
+import TableRows from "./TableRows";
 
 export default () => {
     return (
