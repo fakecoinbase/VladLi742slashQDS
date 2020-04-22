@@ -1,9 +1,12 @@
 import React from 'react';
-import ReactDom from 'react-dom';
-import App from '../App';
+import ReactDom  from 'react-dom';
+import { act } from 'react-dom/test-utils';
+import App from '../../../qds/src/App';
 
 it('renders without crashing', () => {
     const div = document.createElement('div');
-    ReactDom.render(<App />, div);
+    act(() => {
+        ReactDom.render(<App />, div);
+    });
     ReactDom.unmountComponentAtNode(div);
 });
